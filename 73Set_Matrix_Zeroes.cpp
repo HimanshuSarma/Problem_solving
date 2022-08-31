@@ -56,9 +56,9 @@ void setZeroesApproach2(vector<vector<int>>& matrix) {
 
     for(int i = matrix.size()-1; i >= 0; i--) {
         for(int j = matrix[0].size()-1; j >= 0; j--) {
-            if(i == 0 && row1 == 0) {
+            if(i != 0 && (matrix[i][0] == 0 || matrix[0][j] == 0)) {
                 matrix[i][j] = 0;
-            } else if(i != 0 && (matrix[i][0] == 0 || matrix[0][j] == 0)) {
+            } else if(i == 0 && row1 == 0) {
                 matrix[i][j] = 0;
             }
         }
