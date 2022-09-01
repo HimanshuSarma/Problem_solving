@@ -1,3 +1,9 @@
+// TC: O(N) for searching the element which has element(s) greater than it in it's right hand side + O(logN) for
+// finding the LUB of that element + O(N) for reversing the right side of that element.
+// So, TC = N + logN + N = O(N).
+
+// SC: O(1)
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -20,14 +26,17 @@ void nextPermutation(vector<int>& nums) {
 
     for(int i = nums.size() - 2; i >= 0; i--) {
         if(nums[i] < nums[maxIdx]) {
-            for(int j = nums.size()-1; j >= i + 1; j--) {
-                if(nums[j] > nums[i]) {
-                    maxIdx = j; 
-                    break;
+            int low = i + 1, high = nums.size() - 1, mid = -1;
+            while(low <= high) {
+                mid = (low + high) / 2;
+                if(nums[mid] > nums[i]) {
+                    lubIdx = mid;
+                    low = mid + 1;
+                } else if(nums[mid] <= nums[i]) {
+                    high = mid - 1;
                 }
             }
 
-            lubIdx = maxIdx;
             int temp = nums[i];
             nums[i] = nums[lubIdx];
             nums[lubIdx] = temp;
