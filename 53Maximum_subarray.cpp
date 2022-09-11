@@ -1,3 +1,13 @@
+// Solution 1. Kadane's algorithm:
+// TC: O(N)
+// SC: O(1)
+// Solution 1. Kadane's algorithm:
+
+// Solution 2: Divide and conquer algorithm:
+// TC: O(NlogN)
+// SC: O(logN) Recursive call stack.
+// Solution 2: Divide and conquer algorithm:
+
 #include <bits/stdc++.h>
 
 using namespace std;
