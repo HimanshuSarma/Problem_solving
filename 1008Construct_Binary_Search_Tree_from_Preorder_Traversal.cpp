@@ -1,3 +1,14 @@
+// Approach 1: 
+// TC: O(n*h). This is a loose upper bound, because all of the left child nodes will take just constant time.
+// SC: O(h). Stack space.
+// Approach 1
+
+// Approach 2:
+// TC: O(N). Because we will have a recursive call on every node of the bst, and the time required in every 
+//     recursive call is just constant.
+// SC: O(h). The maximum depth of the recursive call stack will be h.
+// Approach 2
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -10,6 +21,35 @@ public:
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+// Approach 2: using recursion..
+void bstFromPreorderHelper(TreeNode* root, int& currentNode, int upperBound, vector<int>& preorder) {
+    if(currentNode > preorder.size() - 1) return;
+    if(preorder[currentNode] < root->val) {
+        root->left = new TreeNode(preorder[currentNode]);
+        currentNode += 1;
+        if(currentNode > preorder.size() - 1) return;
+        bstFromPreorderHelper(root->left, currentNode, root->val, preorder);
+    } 
+    
+    if(currentNode > preorder.size() - 1) return;
+    if(preorder[currentNode] < upperBound) {
+        root->right = new TreeNode(preorder[currentNode]);
+        currentNode += 1;
+        if(currentNode > preorder.size() - 1) return;
+        bstFromPreorderHelper(root->right, currentNode, upperBound, preorder);
+    }
+}
+
+TreeNode* bstFromPreorder(vector<int>& preorder) {
+    TreeNode* root = new TreeNode(preorder[0]);
+    int currentNode = 1;
+    bstFromPreorderHelper(root, currentNode, INT_MAX, preorder);
+    return root;
+}
+// Approach 2: using recursion..
+
+
+// Approach 1: Using stack...
 stack<TreeNode*> preorderTraversal;
 
 TreeNode* bstFromPreorder(vector<int>& preorder) {
@@ -45,6 +85,7 @@ TreeNode* bstFromPreorder(vector<int>& preorder) {
 
     return root;
 }
+// Approach 1: Using stack...
 
 int main () {
 
