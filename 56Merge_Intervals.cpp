@@ -55,6 +55,11 @@ void merge_sort(vector<vector<int>>& arr, int low, int high) {
     }
 }
 
+int maxOfTwo(int a, int b) {
+    if(a >= b) return a;
+    else return b;
+}
+
 vector<vector<int>> merge(vector<vector<int>>& intervals) {
     if(intervals.size() == 1) return intervals;
     merge_sort(intervals, 0, intervals.size()-1);
@@ -62,23 +67,14 @@ vector<vector<int>> merge(vector<vector<int>>& intervals) {
     vector<int>temp(2);
     int i = 1;
     while(i < intervals.size()) {
-        if(ans.size() == 0 && (intervals[i][0] <= intervals[i-1][1]) || ans.size() > 0 && 
-        (intervals[i][0] <= ans[ans.size()-1][1])) {
-            if(ans.size() == 0 && (intervals[i][1] <= intervals[i-1][1]) || 
-            ans.size() > 0 && intervals[i][1] <= ans[ans.size()-1][1]) {
-                if(ans.size() == 0) {
-                    temp = {intervals[i-1][0], intervals[i-1][1]};
-                    ans.push_back(temp);
-                }
+        if(ans.size() == 0 && intervals[i][0] <= intervals[i-1][1] || 
+            ans.size() > 0 && intervals[i][0] <= ans[ans.size()-1][1]) {
+
+            if(ans.size() == 0) {
+                temp = {intervals[i-1][0], maxOfTwo(intervals[i][1], intervals[i-1][1])};
+                ans.push_back(temp);
             } else {
-                if(ans.size() == 0) {
-                    temp = {intervals[i-1][0], intervals[i][1]};
-                    ans.push_back(temp);
-                } else {
-                    if(intervals[i][1] > ans[ans.size()-1][1])
-                        ans[ans.size()-1][1] = intervals[i][1];
-                }
-                    
+                ans[ans.size()-1][1] = maxOfTwo(intervals[i][1], ans[ans.size()-1][1]);
             }
         } else {
             if(ans.size() == 0) {
