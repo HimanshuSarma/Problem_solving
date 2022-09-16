@@ -1,3 +1,8 @@
+// Approach 2
+// TC: O(NlogN) logN time for binary search and for each iteration of binary search, it takes N time.
+// SC: O(1)
+
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -60,7 +65,7 @@ using namespace std;
 // Approach 2 Helper Recursive...
 bool findPagesHelperRec(int A[], int n1, int maxSoFar, int& booksUsedSoFar, int B, int currentStudent, 
     int potentialAns) {
-        
+
     if(currentStudent == B) {
         // End of recursion...
         return true;
