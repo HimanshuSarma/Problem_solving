@@ -58,12 +58,15 @@ using namespace std;
 
 // Approach 2...
 // Approach 2 Helper Recursive...
-bool findPagesHelper(int A[], int n1, int B, int potentialAns) {
-    int booksUsedSoFar = 0, currentStudent = 0;
-    int totalPages = 0;
-
-    while(currentStudent < B) {
-        totalPages = 0;
+bool findPagesHelperRec(int A[], int n1, int maxSoFar, int& booksUsedSoFar, int B, int currentStudent, 
+    int potentialAns) {
+        
+    if(currentStudent == B) {
+        // End of recursion...
+        return true;
+    } else if(currentStudent <= B-1) {
+        int totalPages = 0;
+        int i = booksUsedSoFar;
         while(n1 - (booksUsedSoFar + 1) >= (B - (currentStudent+1))) {
             totalPages += A[booksUsedSoFar];
             booksUsedSoFar += 1;
@@ -71,15 +74,15 @@ bool findPagesHelper(int A[], int n1, int B, int potentialAns) {
                 if(currentStudent == B-1) {
                     return false;
                 }
+                totalPages -= A[i];
                 booksUsedSoFar -= 1;
-                break;
+                return findPagesHelperRec(A, n1, maxSoFar, booksUsedSoFar, B, currentStudent+1, potentialAns);
+                // maxSoFar = totalPages;
             } 
         }
 
-        currentStudent++;
+        return findPagesHelperRec(A, n1, maxSoFar, booksUsedSoFar, B, currentStudent+1, potentialAns);
     }
-
-    return true;
 }
 // Approach 2 Helper Recursive
 
