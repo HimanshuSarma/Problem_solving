@@ -96,21 +96,14 @@ bool findPagesHelper(int A[], int n1, int B, int potentialAns) {
     int booksUsedSoFar = 0, currentStudent = 0;
     int totalPages = 0;
 
-    while(currentStudent < B) {
-        totalPages = 0;
-        while(n1 - (booksUsedSoFar + 1) >= (B - (currentStudent+1))) {
-            totalPages += A[booksUsedSoFar];
-            booksUsedSoFar += 1;
-            if(totalPages > potentialAns) {
-                if(currentStudent == B-1) {
-                    return false;
-                }
-                booksUsedSoFar -= 1;
-                break;
-            } 
+    for(int i = 0; i < n1; i++) {
+        totalPages += A[i];
+        if(totalPages > potentialAns && currentStudent < B-1) {
+            currentStudent++;
+            totalPages = A[i];
+        } else if(totalPages > potentialAns && currentStudent == B-1) {
+            return false;
         }
-
-        currentStudent++;
     }
 
     return true;
