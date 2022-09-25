@@ -1,7 +1,17 @@
+// Approach 1:
+// TC: Worst case: 3*N(If there exists only 1 distinct element in the entire array.)
+//     Best case: (2*N + total_instances_of_the_largest element) {If there exists at least 2 distinct elements
+//                in the entire array.} 
+//     So, time complexity: O(N).
+
+// SC: Worst case: N, so O(N).
+
+
 #include <bits/stdc++.h>
 
 using namespace std;
 
+// Approach 1...
 stack<int> els;
 
 vector<int> nextGreaterElements(vector<int>& nums) {
@@ -37,7 +47,8 @@ vector<int> nextGreaterElements(vector<int>& nums) {
     }
      
     return ans;
-}   
+}
+// Approach 1   
 
 int main() {
     vector<int> arr = {1, 1, 1, 1, 1};
