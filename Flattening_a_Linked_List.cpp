@@ -1,3 +1,17 @@
+// TC: Let's say on an average there are N nodes in every bottom list, and the total nodes in the main
+//     list is M, then the time required to merge the first two lists is N+N = 2N.
+//     Then, merging the result(size 2N) with the next list(size N) will take 2N + N = 3N time.
+//     Then, merging the result(size 3N) with the next list(size N) will take 3N + N = 4N time.
+//     Then, merging the result(size 4N) with the next list(size N) will take 4N + N = 5N time.
+//     ......
+//     Then, merging the result(size (M-1)N) with the last list(size N) will take (M-1)N + N = MN time.
+
+//     Adding all of them, we get 2N + 3N + 4N + 5N + .... + MN = (2+3+4+5+...+M)N = O(M^2N)
+//     So, time required is O(M^2N).
+
+// SC: O(1).
+ 
+
 #include <bits/stdc++.h>
 
 using namespace std;
