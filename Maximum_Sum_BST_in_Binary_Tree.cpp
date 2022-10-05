@@ -17,7 +17,7 @@ struct TreeNode {
 
 class returnVal {
 public:
-    int sum;
+    int sum = 0;
     int totalSum = 0;
     int min = INT_MAX;
     int max = INT_MIN;
@@ -52,9 +52,6 @@ returnVal maxSumBSTHelper(TreeNode* root, TreeNode* currentNode) {
 
     if(!currentNode->left && !currentNode->right) {
         if(currentNode == root && !postitiveNodes) {
-            currentNodeReturn.isBST = false;
-            currentNodeReturn.sum = 0;
-            currentNodeReturn.totalSum = currentNode->val;
             return currentNodeReturn;
         }
 
@@ -84,19 +81,13 @@ returnVal maxSumBSTHelper(TreeNode* root, TreeNode* currentNode) {
 
     if(!leftReturn.isBST || !rightReturn.isBST) {
         if(currentNode == root && !postitiveNodes) {
-            currentNodeReturn.isBST = false;
-            currentNodeReturn.sum = 0;
             return currentNodeReturn;
         }
+
         currentNodeReturn.isBST = false;
         currentNodeReturn.sum = maxOfTwo(leftReturn.sum, rightReturn.sum);
-        currentNodeReturn.totalSum = currentNode->val + leftReturn.totalSum + rightReturn.totalSum;
-        currentNodeReturn.min = minOfThree(currentNode->val, leftReturn.min, rightReturn.min);
-        currentNodeReturn.max = maxOfThree(currentNode->val, leftReturn.max, rightReturn.max);
     } else {
         if(currentNode == root && !postitiveNodes) {
-            currentNodeReturn.isBST = false;
-            currentNodeReturn.sum = 0;
             return currentNodeReturn;
         } else if(leftReturn.isBST && rightReturn.isBST && 
             ((currentNode->left && currentNode->val > leftReturn.max) || (!currentNode->left)) &&
@@ -108,20 +99,17 @@ returnVal maxSumBSTHelper(TreeNode* root, TreeNode* currentNode) {
             currentNodeReturn.isBST = false;
             currentNodeReturn.sum = maxOfTwo(leftReturn.sum, rightReturn.sum);
         }
-
-        currentNodeReturn.totalSum = currentNode->val + leftReturn.totalSum + rightReturn.totalSum;
-        currentNodeReturn.min = minOfThree(currentNode->val, leftReturn.min, rightReturn.min);
-        currentNodeReturn.max = maxOfThree(currentNode->val, leftReturn.max, rightReturn.max);
-        return currentNodeReturn;
     }
 
+    currentNodeReturn.totalSum = currentNode->val + leftReturn.totalSum + rightReturn.totalSum;
+    currentNodeReturn.min = minOfThree(currentNode->val, leftReturn.min, rightReturn.min);
+    currentNodeReturn.max = maxOfThree(currentNode->val, leftReturn.max, rightReturn.max);
     return currentNodeReturn;
 }
 
 int maxSumBST(TreeNode* root) {
     return maxSumBSTHelper(root, root).sum;
 }
-
 
 int main () {
     TreeNode* root = new TreeNode(4);
