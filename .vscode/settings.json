@@ -9,6 +9,10 @@
         "regex": "cpp",
         "utility": "cpp",
         "valarray": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "cerrno": "cpp",
+        "climits": "cpp",
+        "*.tcc": "cpp",
+        "functional": "cpp"
     }
 }
